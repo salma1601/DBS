@@ -40,9 +40,12 @@ setmat.g2.usv = sum( (gr2 - setmat.g2.mean2) .^2 ,3) ./ (numsecond-1);
 
 t = ( setmat.g1.mean - setmat.g2.mean) ./ sqrt ( ( ( (numfirst-1) * setmat.g1.usv + (numsecond-1) * setmat.g2.usv ) / df) * ( (1/numfirst) + (1/numsecond) ) );
 if direction == 0
-    p = 2 * tcdf(abs(t), df, 'upper' ) ;
-elseif direction == 1 %% testing whether [g1 > g2] (the same as ttest right)
-    p = tcdf(t, df, 'upper' ) ;
+    %p = 2 * tcdf(abs(t), df, 'upper') ;salma
+    p = 2 * (1 - tcdf(abs(t), df));
+elseif direction == 1 %% testing whether [g1 > g2] (the same as ttest right)    
+    %p = tcdf(t, df, 'upper') ; salma
+    p = 1 - tcdf(abs(t), df);
 elseif direction == -1 %% testing whether [g1 < g2] (the same as ttest left)
     p = tcdf(t, df) ;
 end
+

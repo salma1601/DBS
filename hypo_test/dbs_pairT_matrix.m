@@ -39,9 +39,11 @@ setmat.csd = sqrt ( sum((setmat.diff - setmat.mean2).^2, 3)  ./ df ); % csd: cor
 t = (setmat.mean - mu_zero) ./ (setmat.csd / sqrt(numfirst));
 
 if direction == 0
-    p = 2 * tcdf(abs(t), df, 'upper') ;
+    %p = 2 * tcdf(abs(t), df, 'upper') ;salma
+    p = 2 * (1 - tcdf(abs(t), df));
 elseif direction == 1 %% testing whether [g1 > g2] (the same as ttest right)
-    p = tcdf(t, df, 'upper') ;
+    %p = tcdf(t, df, 'upper') ; salma
+    p = 1 - tcdf(abs(t), df);
 elseif direction == -1 %% testing whether [g1 < g2] (the same as ttest left)
     p = tcdf(t, df) ;
 end
